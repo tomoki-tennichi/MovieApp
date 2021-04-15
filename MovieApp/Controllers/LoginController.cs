@@ -29,7 +29,7 @@ namespace MovieApp.Controllers
                 if (this.membershipProvider.ValidateUser(model.UserName, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false);
-                    return RedirectToAction("Index", "Models");
+                    return RedirectToAction("Index", "Movies");
                 }
             }
 

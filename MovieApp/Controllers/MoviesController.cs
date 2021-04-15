@@ -10,6 +10,7 @@ using MovieApp.Models;
 
 namespace MovieApp.Controllers
 {
+    [Authorize]
     public class MoviesController : Controller
     {
         private MovieAppContext db = new MovieAppContext();
