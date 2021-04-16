@@ -1,0 +1,104 @@
+﻿@using MovieApp.Models
+@model MovieApp.Models.SearchViewModel
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+
+<h2>Search</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+
+@using (Html.BeginForm("Search", "Movies", FormMethod.Get))
+{
+    <div class="form-horizontal, from-group">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+
+            <div class="col-md-10 mb-2">
+                @Html.LabelFor(model => model.GenreName, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.EditorFor(model => model.GenreName, new { htmlAttributes = new { @class = "" } })
+                @*   @Html.EditorFor(model => model.GenreName, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.ValidationMessageFor(model => model.GenreName, "", new { @class = "text-danger" })
+                @*</div>
+        </div>
+
+        <div>
+            <div class="col-md-10">*@
+                @Html.LabelFor(model => model.TitleName, htmlAttributes: new { @class = "control col-md-2" })
+                @Html.EditorFor(model => model.TitleName, new { htmlAttributes = new { @class = "" } })
+                @Html.ValidationMessageFor(model => model.TitleName, "", new { @class = "text-danger" })
+
+                <input type="submit" value="検索" class="btn btn-outline-primary" />
+            </div>
+        @*</div>
+
+        <div class="form-group">*@
+            @*<div class="col-md-offset-2 col-md-10">*@
+                @*<input type="submit" value="検索" class="btn btn-default" />*@
+            @*</div>
+        </div>*@
+
+        </div>
+    </div>
+}
+
+
+@{ 
+    var movie = new Movie();
+}
+
+<table class="table">
+    <tr class="thead-light">
+        <th>
+            @Html.DisplayNameFor(model => movie.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => movie.Published_at)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => movie.Genre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => movie.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Movies)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Published_at)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Genre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -7,7 +7,8 @@
     <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
 </head>
 <body>
-    <div class="container">
+
+    @*<div class="container">
         @if (Request.IsAuthenticated)
         {
             @Html.ActionLink("ログアウト", "SignOut", new { Controller = "Login" })
@@ -15,6 +16,25 @@
     </div>
     <div class="container">
         @RenderBody()
+    </div>*@
+
+    <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("MovieApp", "Search", new { Controller = "Movies" }, new { @class = "navbar-brand" })
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                @if (Request.IsAuthenticated)
+                {
+                    @Html.ActionLink("ログアウト", "SignOut", new { Controller = "Login" })
+                }
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        @RenderBody()
     </div>
+
 </body>
 </html>
