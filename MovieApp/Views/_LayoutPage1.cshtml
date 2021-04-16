@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
-    <!-- Font Awesome -->>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
-    <!-- 下記、古いヴァージョン、無効 -->>
+    <!-- 下記、古いヴァージョン、無効 -->
     @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">*@
 
-    <!-- Bootstrap -->>
+    <!-- Bootstrap -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 </head>
@@ -34,7 +34,7 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Request.IsAuthenticated)
                 {
-                    @Html.ActionLink("ログアウト", "SignOut", new { Controller = "Login" })
+                    @Html.ActionLink(" ログアウト", "SignOut", new { Controller = "Login" }, new { @class = "btn btn-outline-light fas fa-sign-out-alt"})
                 }
             </ul>
         </div>

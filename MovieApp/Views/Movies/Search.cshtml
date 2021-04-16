@@ -9,7 +9,7 @@
 <h2>Search</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink(" Create New", "Create", "Movies", new { @class = "btn btn-warning text-white fas fa-plus-circle" })
 </p>
 
 
@@ -36,7 +36,8 @@
                 @Html.EditorFor(model => model.TitleName, new { htmlAttributes = new { @class = "" } })
                 @Html.ValidationMessageFor(model => model.TitleName, "", new { @class = "text-danger" })
 
-                <input type="submit" value="検索" class="btn btn-outline-primary" />
+                <input type="submit" value="&#xf002; 検索" class="btn btn-outline-primary fas" />
+
             </div>
         @*</div>
 
@@ -55,23 +56,26 @@
     var movie = new Movie();
 }
 
-<table class="table">
-    <tr class="thead-light">
-        <th>
-            @Html.DisplayNameFor(model => movie.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => movie.Published_at)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => movie.Genre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => movie.Price)
-        </th>
-        <th></th>
-    </tr>
+<table class="table table-hover">
+    <thead>
+        <tr class="thead-light">
+            <th>
+                @Html.DisplayNameFor(model => movie.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => movie.Published_at)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => movie.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => movie.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
 
+    <tbody>
     @foreach (var item in Model.Movies)
     {
         <tr>
@@ -88,12 +92,15 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success" })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })
+                
+                @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle" })
+                
+                @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })
             </td>
         </tr>
     }
+    </tbody>
 
 </table>
 
