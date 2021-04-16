@@ -4,19 +4,27 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Font Awesome -->>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- 下記、古いヴァージョン、無効 -->>
+    @*<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">*@
+
+    <!-- Bootstrap -->>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 </head>
 <body>
 
     @*<div class="container">
-        @if (Request.IsAuthenticated)
-        {
-            @Html.ActionLink("ログアウト", "SignOut", new { Controller = "Login" })
-        }
-    </div>
-    <div class="container">
-        @RenderBody()
-    </div>*@
+            @if (Request.IsAuthenticated)
+            {
+                @Html.ActionLink("ログアウト", "SignOut", new { Controller = "Login" })
+            }
+        </div>
+        <div class="container">
+            @RenderBody()
+        </div>*@
 
     <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
         <div class="container">
@@ -32,9 +40,11 @@
         </div>
     </nav>
 
+
     <div class="container">
         @RenderBody()
     </div>
 
+    
 </body>
 </html>
