@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MovieApp.Models;
@@ -13,6 +14,13 @@ namespace MovieApp.Controllers
     [Authorize]
     public class MoviesController : Controller
     {
+        //private readonly MovieAppContext _context;
+
+        //public MoviesController(MovieAppContext context)
+        //{
+        //    _context = context;
+        //}
+
         private MovieAppContext db = new MovieAppContext();
 
         // GET: Movies
@@ -34,6 +42,26 @@ namespace MovieApp.Controllers
                 return HttpNotFound();
             }
             return View(movie);
+        }
+
+        // AJAX
+        // GET: Movies/Details
+        public async Task<ActionResult> Details_Json(int? id)
+        {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Movie movie = db.Movie.Find(id);
+            //if (movie == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(movie);
+
+            var movie_info = await db.Movie.FirstOrDefaultAsync(m => m.Id == id);
+
+            return PartialView("Partial", movie_info);
         }
 
         // GET: Movies/Create

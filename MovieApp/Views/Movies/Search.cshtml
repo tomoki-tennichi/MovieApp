@@ -28,10 +28,10 @@
                 @*   @Html.EditorFor(model => model.GenreName, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.GenreName, "", new { @class = "text-danger" })
                 @*</div>
-        </div>
+                    </div>
 
-        <div>
-            <div class="col-md-10">*@
+                    <div>
+                        <div class="col-md-10">*@
                 @Html.LabelFor(model => model.TitleName, htmlAttributes: new { @class = "control col-md-2" })
                 @Html.EditorFor(model => model.TitleName, new { htmlAttributes = new { @class = "" } })
                 @Html.ValidationMessageFor(model => model.TitleName, "", new { @class = "text-danger" })
@@ -39,20 +39,20 @@
                 <input type="submit" value="&#xf002; 検索" class="btn btn-outline-primary fas" />
 
             </div>
-        @*</div>
-
-        <div class="form-group">*@
-            @*<div class="col-md-offset-2 col-md-10">*@
-                @*<input type="submit" value="検索" class="btn btn-default" />*@
             @*</div>
-        </div>*@
+
+                <div class="form-group">*@
+            @*<div class="col-md-offset-2 col-md-10">*@
+            @*<input type="submit" value="検索" class="btn btn-default" />*@
+            @*</div>
+                </div>*@
 
         </div>
     </div>
 }
 
 
-@{ 
+@{
     var movie = new Movie();
 }
 
@@ -80,36 +80,113 @@
     </thead>
 
     <tbody>
-    @foreach (var item in Model.Movies)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Published_at)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })
-                
-                @Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle" })
-                
-                @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })
-            </td>
-        </tr>
-    }
+        @foreach (var item in Model.Movies)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Published_at)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })
+
+                    <button value="Details" class="btn btn-primary j_btn" id="@item.Id" data-url="@Url.Action("Details_Json")" data-bs-toggle="modal" data-bs-target="#ModalHere">
+                        <!-- icon -->
+                        Details
+                    </button>
+                    @*@Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle j_btn" })*@
+
+                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })
+                </td>
+            </tr>
+        }
     </tbody>
 
 </table>
 
+@*@model Movie*@
+<!-- Modal Window-->
+<div id="ModalHere">
+    @*@Html.Partial("Partial")*@
+    @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <dt class="col-sm-2">
+                        ユーザー名：
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.TitleName)
+                    </dd>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+</div>
 
 
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+<!-- JQuery -->
+<script>
+    $(document).ready(function () {
+        $(".j_btn").click(function () {
+
+
+            const url = $(".j_btn").data('url');
+            const id = $(this).attr('id');
+            console.log(id);
+            console.log(url);
+            alert("Hello, VS!!");
+
+
+            $.ajax({
+                url: url + '/' + id,
+                type: 'get',
+                cache: false,
+            })
+
+                .done(function (response) {
+                    const modal_window = $("#ModalHere");
+                    modal_window.html(response);
+
+                    //const modal_window = $("#ModalHere").find('.modal');
+                    //modal_window.removeClass('fade');
+                    //modal_window.addClass('show');
+                    console.log(response);
+                })
+                .fail(function (xhr) {
+                    console.log("Failed...");
+                    console.log(xhr);
+                })
+                .always(function (xhr, msg) {
+                    console.log("the part of messesages that always indicated...");
+                    console.log(xhr, msg);
+                });
+        });
+    });
+
+
+</script>

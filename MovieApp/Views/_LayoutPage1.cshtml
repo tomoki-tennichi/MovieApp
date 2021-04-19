@@ -15,6 +15,11 @@
 
 </head>
 <body>
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 
     <nav class="navbar navbar-dark bg-dark navbar-fixed-top">
         <div class="container">
@@ -24,7 +29,7 @@
             <ul class="nav navbar-nav navbar-right">
                 @if (Request.IsAuthenticated)
                 {
-                    @Html.ActionLink(" ログアウト", "SignOut", new { Controller = "Login" }, new { @class = "btn btn-outline-light fas fa-sign-out-alt"})
+                    @Html.ActionLink(" ログアウト", "SignOut", new { Controller = "Login" }, new { @class = "btn btn-outline-light fas fa-sign-out-alt" })
                 }
             </ul>
         </div>
@@ -35,6 +40,8 @@
         @RenderBody()
     </div>
 
-    
+
+
+
 </body>
 </html>
