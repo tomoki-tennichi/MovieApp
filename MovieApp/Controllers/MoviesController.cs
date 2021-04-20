@@ -14,13 +14,6 @@ namespace MovieApp.Controllers
     [Authorize]
     public class MoviesController : Controller
     {
-        //private readonly MovieAppContext _context;
-
-        //public MoviesController(MovieAppContext context)
-        //{
-        //    _context = context;
-        //}
-
         private MovieAppContext db = new MovieAppContext();
 
         // GET: Movies
@@ -44,21 +37,15 @@ namespace MovieApp.Controllers
             return View(movie);
         }
 
+        public ActionResult Partial()
+        {
+            return RedirectToAction("Search");
+        }
+
         // AJAX
         // GET: Movies/Details
         public async Task<ActionResult> Details_Json(int? id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //Movie movie = db.Movie.Find(id);
-            //if (movie == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //return View(movie);
-
             var movie_info = await db.Movie.FirstOrDefaultAsync(m => m.Id == id);
 
             return PartialView("Partial", movie_info);
@@ -77,26 +64,20 @@ namespace MovieApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Published_at,Genre,Price")] Movie movie)
         {
-            // *****DEBUG01
             if (movie.Title == null)
             {
                 // return RedirectToAction("Create", new { movie = movie.Title });
                 // どちらの return でも Movie.Ceate 画面に戻される。
                 return View();
                 // return View(movie);
-            
             }
-
-
 
             if (ModelState.IsValid)
             {
                 db.Movie.Add(movie);
                 db.SaveChanges();
-                //return RedirectToAction("Index");
                 return RedirectToAction("Search");
             }
-
             return View(movie);
         }
 
@@ -126,7 +107,6 @@ namespace MovieApp.Controllers
             {
                 db.Entry(movie).State = EntityState.Modified;
                 db.SaveChanges();
-                //return RedirectToAction("Index");
                 return RedirectToAction("Search");
             }
             return View(movie);
@@ -168,7 +148,6 @@ namespace MovieApp.Controllers
             base.Dispose(disposing);
         }
 
-
         // Search
         public ActionResult Search([Bind(Include = "GenreName, TitleName")]　SearchViewModel model)
         {
@@ -178,14 +157,23 @@ namespace MovieApp.Controllers
             if (sign == "1")
             {
                 model.Movies = db.Movie.OrderByDescending(a => a.Published_at).ToList();
+                ViewData["Sign"] = "0";
+                return View(model);
             }
+            else if (sign == "0")
+            {
+                model.Movies = db.Movie.OrderBy(a => a.Published_at).ToList();
+                ViewData["Sign"] = "1";
+                return View(model);
+            }
+
+
             // ジャンル名が空欄ではない場合
             // ジャンル、タイトル両方
-            else if (!string.IsNullOrEmpty(model.GenreName) && !string.IsNullOrEmpty(model.TitleName))
+            if (!string.IsNullOrEmpty(model.GenreName) && !string.IsNullOrEmpty(model.TitleName))
             {
                 var list = db.Movie.Where(item => item.Genre.IndexOf(model.GenreName) == 0
                                                 && item.Title.IndexOf(model.TitleName) == 0).ToList();
-
                 model.Movies = list;
             }
             else if (!string.IsNullOrEmpty(model.GenreName) && string.IsNullOrEmpty(model.TitleName))
@@ -193,15 +181,11 @@ namespace MovieApp.Controllers
                 // ジャンル名アリ、タイトル名ナシ
                 // var list
                 model.Movies = db.Movie.Where(item => item.Genre == model.GenreName).ToList();
-
-                // model.Movies = list;
             }
             else if (string.IsNullOrEmpty(model.GenreName) && !string.IsNullOrEmpty(model.TitleName))
             {
                 // ジャンル名ナシ、タイトル名アリ
                 model.Movies = db.Movie.Where(item => item.Title == model.TitleName).ToList();
-
-
                 //var list = db.Movie.Where(item => item.Title.IndexOf(model.TitleName) == 0).ToList();
                 //model.Movies = list;
             }
@@ -211,6 +195,7 @@ namespace MovieApp.Controllers
                 model.Movies = db.Movie.OrderByDescending(a => a.Id).ToList();
             }
 
+            ViewData["Sign"] = "1";
             return View(model);
         }
 

@@ -32,14 +32,12 @@ namespace MovieApp.Controllers
 
                     // ログイン後、Views/Movies/Search
                     return RedirectToAction("Search", "Movies");
-                    //return RedirectToAction("Index", "Movies");
                 }
             }
 
             ViewBag.Message = "ログイン失敗。";
             return View(model);
         }
-
 
         // ログアウト
         public ActionResult SignOut()

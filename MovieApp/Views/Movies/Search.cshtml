@@ -13,7 +13,6 @@
 </p>
 
 
-
 @using (Html.BeginForm("Search", "Movies", FormMethod.Get))
 {
     <div class="form-horizontal, from-group">
@@ -25,13 +24,8 @@
             <div class="col-md-10 mb-2">
                 @Html.LabelFor(model => model.GenreName, htmlAttributes: new { @class = "control-label col-md-2" })
                 @Html.EditorFor(model => model.GenreName, new { htmlAttributes = new { @class = "" } })
-                @*   @Html.EditorFor(model => model.GenreName, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.GenreName, "", new { @class = "text-danger" })
-                @*</div>
-                    </div>
-
-                    <div>
-                        <div class="col-md-10">*@
+                
                 @Html.LabelFor(model => model.TitleName, htmlAttributes: new { @class = "control col-md-2" })
                 @Html.EditorFor(model => model.TitleName, new { htmlAttributes = new { @class = "" } })
                 @Html.ValidationMessageFor(model => model.TitleName, "", new { @class = "text-danger" })
@@ -39,14 +33,6 @@
                 <input type="submit" value="&#xf002; Search" class="btn btn-outline-primary fas" />
 
             </div>
-            @*</div>
-
-                <div class="form-group">*@
-            @*<div class="col-md-offset-2 col-md-10">*@
-            @*<input type="submit" value="検索" class="btn btn-default" />*@
-            @*</div>
-                </div>*@
-
         </div>
     </div>
 }
@@ -66,7 +52,7 @@
             <th>
                 <i class="fas fa-theater-masks"></i>
                 @Html.DisplayNameFor(model => movie.Published_at)
-                <a href="@Url.Action("Search", "Movies", new { Sign = "1"})"><i class="fas fa-caret-down" style="color:#495057"></i></a>
+                <a href="@Url.Action("Search", "Movies", new { Sign = @ViewData["Sign"]})"><i class="fas fa-caret-down" style="color:#495057"></i></a>
             </th>
             <th>
                 <i class="fas fa-bars"></i>
@@ -97,19 +83,8 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    <!--@Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })-->
-
-                    <!--<button type="button" value="Details" class="btn btn-primary j_btn" id="@item.Id" data-url="@Url.Action("Details_Json")" data-bs-target="#exampleModal">-->
-                        <!-- icon -->
-                        <!--Details
-                    </button>-->
-                    <!--@Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle j_btn" })
-
-                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })-->
-
                         <a href="@Url.Action("Edit", "Movies", new {id = item.Id})" class="btn btn-success"><i class="far fa-edit"></i> Edit</a>
                         <a style="color:white;cursor:pointer" data-url="@Url.Action("Details_Json")" id="@item.Id" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>
-                        @*<a href="@Url.Action("Details_Json", new {id = item.Id})" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>*@
                         <a href="@Url.Action("Delete", "Movies", new {id = item.Id})" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
                 </td>
             </tr>
@@ -118,6 +93,7 @@
 
 </table>
 
+
 @*@model Movie*@
 <!-- Modal Window-->
 <div id="ModalHere">
@@ -125,14 +101,11 @@
 </div>
 
 
-
-
 <!-- JQuery -->
 <script>
 
     $(document).ready(function () {
         $(".j_btn").click(function () {
-
 
             const url = $(this).data('url');
             const id = $(this).attr('id');
@@ -156,10 +129,6 @@
                     console.log("Failed...");
                     console.log(xhr);
                 })
-                //.always(function (xhr, msg) {
-                //    console.log("the part of messesages that always indicated...");
-                //    console.log(xhr, msg);
-                //});
         });
     });
 
