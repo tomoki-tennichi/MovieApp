@@ -16,6 +16,7 @@ namespace MovieApp.Models
         public string Title { get; set; }
 
         [DisplayName("公開日")]
+        [DataType(DataType.Date)]
         public DateTime Published_at { get; set; }
 
         [Required]
