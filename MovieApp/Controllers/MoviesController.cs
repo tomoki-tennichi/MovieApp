@@ -172,10 +172,16 @@ namespace MovieApp.Controllers
         // Search
         public ActionResult Search([Bind(Include = "GenreName, TitleName")]　SearchViewModel model)
         {
-            // ジャンル名が空欄ではない場合
+            var sign = Request.QueryString["Sign"];
 
+            // 公開日の項目名の右にある下向き三角形、押下時
+            if (sign == "1")
+            {
+                model.Movies = db.Movie.OrderByDescending(a => a.Published_at).ToList();
+            }
+            // ジャンル名が空欄ではない場合
             // ジャンル、タイトル両方
-            if (!string.IsNullOrEmpty(model.GenreName) && !string.IsNullOrEmpty(model.TitleName))
+            else if (!string.IsNullOrEmpty(model.GenreName) && !string.IsNullOrEmpty(model.TitleName))
             {
                 var list = db.Movie.Where(item => item.Genre.IndexOf(model.GenreName) == 0
                                                 && item.Title.IndexOf(model.TitleName) == 0).ToList();
@@ -206,6 +212,14 @@ namespace MovieApp.Controllers
             }
 
             return View(model);
+        }
+
+
+        // ソート処理
+        [HttpGet]
+        public ActionResult Sort_By_Published_At(Movie movie)
+        {
+            return View(db.Movie.OrderByDescending(a => a.Published_at).ToList());
         }
     }
 }
