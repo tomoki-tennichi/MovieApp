@@ -46,13 +46,25 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "del_form"})) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="&#xf2ed; Delete" class="btn btn-outline-danger far" /> |
+            <input type="button" value="&#xf2ed; Delete" class="btn btn-outline-danger far del_btn" /> |
+            @*<input type="submit" value="&#xf2ed; Delete" class="btn btn-outline-danger far" />*@ |
             @Html.ActionLink("Back to List", "Search")
             @*@Html.ActionLink("Back to List", "Index")*@
         </div>
+
+        <script>
+            const del_btn = document.querySelector('.del_btn');
+            const del_form = document.querySelector('.del_form');
+
+            del_btn.addEventListener("click", () => {
+                if (window.confirm("本当に削除してもよろしいですか？")) {
+                    del_form.submit();
+                }
+            });
+        </script>
     }
 </div>

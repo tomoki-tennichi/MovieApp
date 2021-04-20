@@ -106,10 +106,10 @@
 
                     @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })-->
 
-                        <a href="@Url.Action("Edit", "Movie", new {id = item.Id})" class="btn btn-success"><i class="far fa-edit"></i> Edit</a>
+                        <a href="@Url.Action("Edit", "Movies", new {id = item.Id})" class="btn btn-success"><i class="far fa-edit"></i> Edit</a>
                         <a style="color:white;cursor:pointer" data-url="@Url.Action("Details_Json")" id="@item.Id" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>
                         @*<a href="@Url.Action("Details_Json", new {id = item.Id})" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>*@
-                        <a href="@Url.Action("Delete", "Movie", new {id = item.Id})" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                        <a href="@Url.Action("Delete", "Movies", new {id = item.Id})" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
                 </td>
             </tr>
         }

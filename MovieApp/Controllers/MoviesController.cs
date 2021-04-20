@@ -202,7 +202,7 @@ namespace MovieApp.Controllers
             else
             {
                 // 何も入力されていない場合
-                model.Movies = db.Movie.ToList();
+                model.Movies = db.Movie.OrderByDescending(a => a.Id).ToList();
             }
 
             return View(model);
