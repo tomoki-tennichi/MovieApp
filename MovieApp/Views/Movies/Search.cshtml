@@ -36,7 +36,7 @@
                 @Html.EditorFor(model => model.TitleName, new { htmlAttributes = new { @class = "" } })
                 @Html.ValidationMessageFor(model => model.TitleName, "", new { @class = "text-danger" })
 
-                <input type="submit" value="&#xf002; 検索" class="btn btn-outline-primary fas" />
+                <input type="submit" value="&#xf002; Search" class="btn btn-outline-primary fas" />
 
             </div>
             @*</div>
@@ -96,15 +96,20 @@
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
                 <td>
-                    @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })
+                    <!--@Html.ActionLink(" Edit", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-success far fa-edit" })-->
 
-                    <button type="button" value="Details" class="btn btn-primary j_btn" id="@item.Id" data-url="@Url.Action("Details_Json")" data-bs-target="#exampleModal">
+                    <!--<button type="button" value="Details" class="btn btn-primary j_btn" id="@item.Id" data-url="@Url.Action("Details_Json")" data-bs-target="#exampleModal">-->
                         <!-- icon -->
-                        Details
-                    </button>
-                    @*@Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle j_btn" })*@
+                        <!--Details
+                    </button>-->
+                    <!--@Html.ActionLink(" Details", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary fas fa-info-circle j_btn" })
 
-                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })
+                    @Html.ActionLink(" Delete", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger far fa-trash-alt" })-->
+
+                        <a href="@Url.Action("Edit", "Movie", new {id = item.Id})" class="btn btn-success"><i class="far fa-edit"></i> Edit</a>
+                        <a style="color:white;cursor:pointer" data-url="@Url.Action("Details_Json")" id="@item.Id" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>
+                        @*<a href="@Url.Action("Details_Json", new {id = item.Id})" class="btn btn-primary j_btn" data-bs-target="#exampleModal"><i class="fas fa-info-circle"></i> Details</a>*@
+                        <a href="@Url.Action("Delete", "Movie", new {id = item.Id})" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
                 </td>
             </tr>
         }
