@@ -35,7 +35,33 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Genre, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Genre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.Genre, new List<SelectListItem>
+                    { new SelectListItem { Text = "アクション", Value = "アクション"},
+                      new SelectListItem { Text = "アドベンチャー", Value = "アドベンチャー"},
+                      new SelectListItem { Text = "アニメーション", Value = "アニメーション"},
+                      new SelectListItem { Text = "SF", Value = "SF"},
+                      new SelectListItem { Text = "音楽", Value = "音楽"},
+                      new SelectListItem { Text = "コメディ", Value = "コメディ"},
+                      new SelectListItem { Text = "サスペンス", Value = "サスペンス"},
+                      new SelectListItem { Text = "スポーツ", Value = "スポーツ"},
+                      new SelectListItem { Text = "成人", Value = "成人"},
+                      new SelectListItem { Text = "西部劇", Value = "西部劇"},
+                      new SelectListItem { Text = "戦争", Value = "戦争"},
+                      new SelectListItem { Text = "短編", Value = "短編"},
+                      new SelectListItem { Text = "伝記", Value = "伝記"},
+                      new SelectListItem { Text = "ドキュメンタリー", Value = "ドキュメンタリー"},
+                      new SelectListItem { Text = "ドラマ", Value = "ドラマ"},
+                      new SelectListItem { Text = "犯罪", Value = "犯罪"},
+                      new SelectListItem { Text = "ファミリー", Value = "ファミリー"},
+                      new SelectListItem { Text = "ファンタジー", Value = "ファンタジー"},
+                      new SelectListItem { Text = "フィルム・ノワール", Value = "フィルム・ノワール"},
+                      new SelectListItem { Text = "ホラー", Value = "ホラー"},
+                      new SelectListItem { Text = "ミステリー", Value = "ミステリー"},
+                      new SelectListItem { Text = "ミュージカル", Value = "ミュージカル"},
+                      new SelectListItem { Text = "歴史", Value = "歴史"},
+                      new SelectListItem { Text = "ロマンス", Value = "ロマンス"}}, "ジャンルを選んでください",
+                      new { @class = "form-control" })
+                @*@Html.EditorFor(model => model.Genre, new { htmlAttributes = new { @class = "form-control" } })*@
                 @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "text-danger" })
             </div>
         </div>
