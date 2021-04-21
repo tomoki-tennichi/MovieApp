@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -199,12 +201,39 @@ namespace MovieApp.Controllers
             return View(model);
         }
 
-
-        // ソート処理
-        [HttpGet]
-        public ActionResult Sort_By_Published_At(Movie movie)
+        
+        // CSV, ダウンロード
+        public ActionResult CSV_Download()
         {
-            return View(db.Movie.OrderByDescending(a => a.Published_at).ToList());
+            //var fileName = "一時的なファイルの名前ジョン.csv";
+            var fileName = string.Format("movie-data{0:yyyyMMdd}.csv", DateTime.Now);
+
+            var stream = new MemoryStream();
+            var csvWriter = new StreamWriter(stream, Encoding.GetEncoding("shift-jis"));
+
+            var list = db.Movie.ToList();
+
+            // 見出し
+            csvWriter.WriteLine(String.Format("{0},{1},{2},{3}",
+                "タイトル",
+                "ジャンル",
+                "公開日",
+                "金額"
+            ));
+
+            // データ
+            for (int i = 0; i < list.Count; i++)
+            {
+                csvWriter.WriteLine(String.Format("{0},{1},{2},{3}",
+                    list[i].Title,
+                    list[i].Genre,
+                    list[i].Published_at,
+                    list[i].Price
+                ));
+            }
+
+            csvWriter.Flush();
+            return File(stream.ToArray(), "text/csv", fileName);
         }
     }
 }
